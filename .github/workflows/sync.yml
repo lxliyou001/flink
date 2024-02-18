@@ -1,0 +1,16 @@
+name: Sync Fork
+
+on:
+  push: # push 时触发, 主要是为了测试配置有没有问题
+  schedule:
+    - cron: '0 0 * * *' # 每天一次
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: tgymnich/fork-sync@v1.8
+        with:
+          token: ${{ secrets.TOKEN }} #Github Token，记得加入secrets
+          owner: apache/flink # fork 的上游仓库 user
+          head: master # fork 的上游仓库 branch
+          base: FLINK-34401 # 本地仓库 branch
